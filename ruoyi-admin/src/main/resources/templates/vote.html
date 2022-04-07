@@ -2,7 +2,7 @@
 <html  lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>传火投票页</title>
+  <title>选举投票页</title>
     <link th:href="@{favicon.ico}" rel="shortcut icon"/>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
     <link th:href="@{/css/jquery.contextMenu.min.css}" rel="stylesheet"/>
@@ -15,18 +15,22 @@
     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Inter:400,500,600,700&amp;display=swap'>
     <link href="../static/css/vote.css" th:href="@{/css/vote.css}" rel="stylesheet">
     <link href="../static/css/jquery-ui-1.10.4.custom.min.css" th:href="@{/css/jquery-ui-1.10.4.custom.min.css}" rel="stylesheet">
+    <style>
+    body{background:url(../img/980.jpeg) top left;
+    background-size:100%;}
+    </style>
 </head>
 <body>
     <div class="grid-wrap">
         <div class="grid-wrap-aside">
-            <h1>欢迎您<span style="color:red" th:text="${user}"/><span th:if="${user != null and user != ''}"><a th:href="@{/logout}"><退出></a></span>,薪王选举规则：</h1><br/>
-            <span>1.推选薪王前先<a th:href="@{/login}"><登陆></a>,没有账号请先<a th:href="@{/register}"><注册></a>.</span><br/>
-            <span>2.每个人只可以推选3人,得票最高当选，可能产生并列薪王.</span><br/>
+            <h1>欢迎您<span style="color:red" th:text="${user}"/><span th:if="${user != null and user != ''}"><a th:href="@{/logout}"><退出></a></span>,选举规则：</h1><br/>
+            <span>1.推选前先<a th:href="@{/login}"><登陆></a>,没有账号请先<a th:href="@{/register}"><注册></a>.</span><br/>
+            <span>2.每个人只可以推选3人,得票最高当选，可能产生并列者.</span><br/>
             <span>3.<span style="color:red">以上规则并不重要</span>，重要的是系统采用加密处理和保存投票记录，实现了"<span style="color:red">匿名</span>"投票.</span><br/>
-            <span>4.未来选举出来的薪王即便获取了投票记录，也无法恢复出各位的原始意愿.</span><br/>
+            <span>4.未来选举出来的总统即便获取了投票记录，也无法恢复出各位的原始意愿.</span><br/>
             <span>5.计票基于加密过的投票记录计算结果，能产生和明文计票相同的结果.</span><br/>
             <span>6.以上<span style="color:red">这个方法就叫同态加密</span>.</span><br/>
-            <span>7.如果您想查看其他不死人投票记录，先<a th:href="@{/login}"><登陆></a>再点<a th:href="@{/index}"><这里></a>.</span><br/>
+            <span>7.如果您想查看其他选民投票记录，先<a th:href="@{/login}"><登陆></a>再点<a th:href="@{/index}"><这里></a>.</span><br/>
         </div>
         <div>
                 <div class="grid">
@@ -72,15 +76,18 @@
             var csize = $("input[name='candidates']:checked").size();
             if(csize <= 0 || csize > 3){
                 $("#btnSubmit").attr('disabled', true);
+                $("#btnSubmit_w").attr('disabled', true);
             }
             
             $('.card__input').click(function(){
                 var size = $("input[name='candidates']:checked").size();
                 if(size && (size > 3 || size <= 0)){
                     $("#btnSubmit").attr('disabled', true);
+                    $("#btnSubmit_w").attr('disabled', true);
                 }
                 if(size && size <= 3){
                     $("#btnSubmit").attr('disabled', false);
+                    $("#btnSubmit_w").attr('disabled', false);
                 }
             });
             
